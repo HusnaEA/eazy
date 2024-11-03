@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Streaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        nav a {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: #333;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            padding: 2rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        .video-container {
+            max-width: 800px;
+            width: 100%;
+        }
+        .video-player {
+            background-color: #000;
+            width: 100%;
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .video-player video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .video-info {
+            margin-top: 1rem;
+        }
+        .video-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .video-description {
+            margin-top: 0.5rem;
+            color: #666;
+        }
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+            width: 100%;
+        }
+        .pomodoro-timer, .notes-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+        .start-button, .stop-button, .submit-button {
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+        .start-button:hover, .stop-button:hover, .submit-button:hover {
+            background-color: #0056b3;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0.5rem;
+        }
+        footer {
+            border-top: 1px solid #e5e5e5;
+            padding: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" aria-label="EduTech Platform">EduTech Platform</a>
+        <nav>
+            <a href="#">Features</a>
+            <a href="#">Pricing</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Video Container -->
+        <div class="video-container">
+            <div class="video-player">
+                <video controls>
+                    <source src="your-video-source.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="video-info">
+                <div class="video-title">Video Title Goes Here</div>
+                <div class="video-description">This is a description of the video, similar to YouTube's layout. It includes a brief overview of the video content.</div>
+            </div>
+        </div>
+
+        <!-- Sidebar with Pomodoro Timer and Notes -->
+        <div class="sidebar">
+            <!-- Pomodoro Timer -->
+            <div class="pomodoro-timer">
+                <h2>Pomodoro Timer</h2>
+                <p id="timerDisplay">25:00</p>
+                <button class="start-button" onclick="startTimer()">Start</button>
+                <button class="stop-button" onclick="stopTimer()" style="display:none;">Stop</button>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="notes-section">
+                <h2>Submit Notes</h2>
+                <textarea id="notesInput" placeholder="Write your notes here..."></textarea>
+                <button class="submit-button" onclick="submitNotes()">Submit</button>
+                <div id="notesOutput" style="margin-top: 1rem;"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 EduTech Platform</p>
+    </footer>
+
+    <script>
+        let timer;
+        let timeLeft = 25 * 60; // 25 minutes in seconds
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateDisplay();
+                } else {
+                    clearInterval(timer);
+                    alert("Time's up!");
+                }
+            }, 1000);
+            document.querySelector('.start-button').style.display = 'none';
+            document.querySelector('.stop-button').style.display = 'inline';
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            document.querySelector('.start-button').style.display = 'inline';
+            document.querySelector('.stop-button').style.display = 'none';
+        }
+
+        function submitNotes() {
+            const notesInput = document.getElementById('notesInput');
+            const notesOutput = document.getElementById('notesOutput');
+            if (notesInput.value.trim() !== "") {
+                // Append the new note
+                notesOutput.innerHTML += `<p>${notesInput.value}</p>`;
+                // Clear the textarea
+                notesInput.value = '';
+            } else {
+                alert('Please enter a note before submitting.');
+            }
+        }
+    </script>
+
+</body>
+</html>

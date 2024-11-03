@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Button with Logo</title>
+  <style>
+    /* Button styling */
+    .home-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px;
+      padding: 10px;
+      background-color: #4CAF50;
+      border-radius: 8px;
+      border: none;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Logo styling */
+    .home-button img {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+
+    /* Hover effect */
+    .home-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Home Button with Logo -->
+  <a href="https://www.yourwebsite.com" class="home-button">
+    <img src="logo.png" alt="Home Logo">
+    Home
+  </a>
+
+  <!-- Optional: JavaScript for smooth navigation (if needed) -->
+  <script>
+    document.querySelector('.home-button').addEventListener('click', function(event) {
+      event.preventDefault();
+      window.location.href = 'https://www.yourwebsite.com';
+    });
+  </script>
+
+</body>
+</html>
